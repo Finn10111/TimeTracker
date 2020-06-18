@@ -1,0 +1,35 @@
+<ul class="list-group">
+  <li class="list-group-item p-1 {{if task.isRunning 'list-group-item-success'}}">
+    <div class="d-flex">
+      <div class="p-2 flex-grow-1">Status
+        {{#if this.activeTask}}
+          <span class="badge badge-pill badge-success">running</span>
+        {{else}}
+          <span class="badge badge-pill badge-info">idle</span>
+        {{/if}}
+      </div>
+      <div class="p-2">Total <span class="badge badge-pill badge-success">{{moment-duration this.totalMilliseconds}}</span></div>
+      <div class="p-2"><button class="btn btn-sm btn-info" {{on "click" this.stopAll}}>pause</button></div>
+    </div>
+  </li>
+
+  {{#each @model as |task|}}
+    <li class="list-group-item p-1 {{if task.isRunning 'list-group-item-success'}}">
+      <div class="d-flex">
+        <div class="p-2 flex-grow-1" {{on 'click' (fn this.activate task)}}>{{task.name}}</div>
+        <div class="p-2"><span class="badge badge-pill badge-success">{{moment-duration task.milliseconds}}</span></div>
+        <div class="p-2"><button class="btn btn-sm btn-danger" {{on "click" (fn this.delete task)}}>remove</button></div>
+      </div>
+    </li>
+  {{/each}}
+
+  <BsForm @model={{this}} @onSubmit={{action "addTask"}} as |form|>
+    <form.group>
+      <li class="list-group-item">
+        <input value={{this.name}} class="form-control" oninput={{action (mut this.name) value="target.value"}} type="text" placeholder="add new task...">
+      </li>
+    </form.group>
+  </BsForm>
+
+</ul>
+
