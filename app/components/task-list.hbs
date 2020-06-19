@@ -8,7 +8,7 @@
           <span class="badge badge-pill badge-info">idle</span>
         {{/if}}
       </div>
-      <div class="p-2">Total <span class="badge badge-pill badge-success">{{moment-duration this.totalMilliseconds}}</span></div>
+      <div class="p-2">Total <span class="badge badge-pill badge-success">{{duration this.totalSeconds}}</span></div>
       <div class="p-2"><button class="btn btn-sm btn-info {{if this.activeTask '' 'disabled'}}" {{on "click" this.stopAll}} >pause</button></div>
     </div>
   </li>
@@ -16,7 +16,7 @@
   {{#each @model as |task|}}
     <li class="list-group-item p-1 {{if task.isRunning 'list-group-item-success'}}">
       <div class="d-flex">
-        <div class="p-2 flex-grow-1" {{on 'click' (fn this.activate task)}}>{{task.name}}</div>
+        <div class="p-2 flex-grow-1 pointer" {{on 'click' (fn this.activate task)}}>{{task.name}}</div>
         <div class="p-2"><span class="badge badge-pill badge-success">{{duration task.seconds}}</span></div>
         <div class="p-2"><button class="btn btn-sm btn-danger" {{on "click" (fn this.delete task)}}>remove</button></div>
       </div>

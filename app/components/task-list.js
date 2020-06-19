@@ -7,11 +7,12 @@ export default class TaskListComponent extends Component {
   @service store;
   @tracked activeTask = null;
   @tracked interval = null;
-  @tracked totalMilliseconds = 0;
+  @tracked totalSeconds = 0;
 
   constructor(owner, args) {
     super(owner, args);
     this.stopAll();
+    this.calculateToalSeconds();
   }
 
   @action
@@ -43,7 +44,7 @@ export default class TaskListComponent extends Component {
         self.interval = setInterval(function() {
           task.incrementProperty('seconds');
           task.save().then(function() {
-            self.calculateToalMilliseconds();
+            self.calculateToalSeconds();
           });
         }, 1000);
       });
@@ -75,13 +76,13 @@ export default class TaskListComponent extends Component {
   }
 
   @action
-  calculateToalMilliseconds() {
+  calculateToalSeconds() {
     var self = this;
-    this.totalMilliseconds = 0;
+    this.totalSeconds = 0;
     this.store.findAll('task')
       .then(function(tasks) {
         tasks.forEach(function(task) {
-          self.totalMilliseconds += task.milliseconds;
+          self.totalSeconds += task.seconds;
         })
     });
   }
