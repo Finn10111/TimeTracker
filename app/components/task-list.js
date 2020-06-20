@@ -52,15 +52,17 @@ export default class TaskListComponent extends Component {
         }, 1000);
       });
     });
-
   }
 
   @action
   delete(task) {
+    var self = this;
     if (task.isRunning) {
       this.activeTask = null;
     }
-    task.destroyRecord();
+    task.destroyRecord().then(function() {
+      self.calculateToalSeconds();
+    });
   }
 
   @action
