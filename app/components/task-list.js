@@ -17,12 +17,15 @@ export default class TaskListComponent extends Component {
 
   @action
   addTask(data) {
+    if (!data.name) {
+      return;
+    }
     var self = this;
     this.store.createRecord('task', {
       name: data.name,
     }).save().then(function(task) {
       self.activate(task);
-      data = null;
+      // TODO: reset input
     });
   }
 
