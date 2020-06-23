@@ -47,5 +47,19 @@ module.exports = function(environment) {
     // here you can enable a production-specific feature
   }
 
+  ENV['ember-simple-auth'] = {
+    authorizer: 'authorizer:token'
+  };
+  ENV['ember-simple-auth-token'] = {
+    serverTokenEndpoint: '/api/auth/login',
+    refreshAccessTokens: true,
+    serverTokenRefreshEndpoint: '/api/auth/refresh',
+    refreshLeeway: 300, // Refresh the token 5 minutes (300s) before it expires.
+    headers: {'Content-Type': 'application/json'},
+    tokenPropertyName: 'access_token',
+    refreshTokenPropertyName: 'refresh_token',
+    timeFactor: 1000
+  };
+
   return ENV;
 };

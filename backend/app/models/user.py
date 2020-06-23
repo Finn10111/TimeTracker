@@ -10,7 +10,7 @@ class User(db.Model):
     password_hash = db.Column(db.String(128))
     email = db.Column(db.String(64), unique=True, index=True)
     created_at = db.Column(db.DateTime, default=datetime.now, nullable=False)
-    updated_at = db.Column(db.DateTime, onupdate=datetime.now, nullable=False)
+    updated_at = db.Column(db.DateTime, onupdate=datetime.now, nullable=True)
 
     @property
     def password(self):
