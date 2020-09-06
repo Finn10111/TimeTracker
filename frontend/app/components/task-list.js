@@ -8,6 +8,7 @@ export default class TaskListComponent extends Component {
   @tracked activeTask = null;
   @tracked interval = null;
   @tracked totalSeconds = 0;
+  @tracked newTaskName = '';
 
   constructor(owner, args) {
     super(owner, args);
@@ -19,29 +20,28 @@ export default class TaskListComponent extends Component {
   }
 
   @action
-  addTask(data) {
-    if (!data.name) {
+  addTask() {
+    if (!this.newTaskName) {
       return;
     }
     var self = this;
     this.store.createRecord('task', {
-      name: data.name,
+      name: self.newTaskName,
     }).save().then(function(task) {
       self.activate(task);
-      // TODO: reset input
+      // reset input
+      self.newTaskName = '';
     });
   }
 
   @action
   activate(task) {
     this.stopAll();
-    let timeperiod = this.store.createRecord('timeperiod');
-    timeperiod.set('task', task);
-    timeperiod.set('start', new Date());
-    timeperiod.save()
-      .then(function(response) {
-
+    let timeperiod = this.store.createRecord('timeperiod', {
+      'task': task,
+      'start': new Date(),
     });
+    timeperiod.save();
     this.activeTask = task;
   }
 

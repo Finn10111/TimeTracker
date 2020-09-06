@@ -17,7 +17,10 @@ export default class LoginController extends Controller {
     }
 
     if (this.session.isAuthenticated) {
-      // What to do with all this success?
+      this.session.set('data.username', identification);
+      this.transitionToRoute('index');
+    } else {
+      this.errorMessage = 'login failed :-(';
     }
   }
 }

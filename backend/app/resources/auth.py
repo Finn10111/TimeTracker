@@ -16,7 +16,6 @@ bp = Blueprint('Auth', 'auth', url_prefix='auth',
 class Login(MethodView):
     @bp.arguments(AuthSchema)
     def post(self, login):
-        print(login)
         username = login['identification']
         password = login['password']
         user = User.query.filter_by(username=username).first()

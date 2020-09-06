@@ -18,26 +18,40 @@
       {{/link-to}}
   </div>
   <navbar.content>
-    <navbar.nav as |nav|>
+
+    <navbar.nav @class="mr-auto" as |nav|>
+      <nav.item>
+        <nav.link-to @route="index"> <MdIcon @icon="calendar-check" @size=20 @fill="#ffffff"/> Tasks</nav.link-to>
+      </nav.item>
+    </navbar.nav>
+
+    <navbar.nav as |nav2|>
       {{#if this.session.isAuthenticated}}
-        <nav.item>
-          <nav.link-to @route="index">Tasks</nav.link-to>
-        </nav.item>
-        <nav.item>
-          <nav.link-to @route="logout">Logout</nav.link-to>
-        </nav.item>
+        <nav2.item>
+          <nav2.link-to @route="logout"><MdIcon @icon="logout" @size=20 @fill="#ffffff"/> Logout</nav2.link-to>
+        </nav2.item>
+        <nav2.item>
+        <nav2.link-to @route="profile"><MdIcon @icon="account" @size=20 @fill="#ffffff"/> Profile ({{this.session.data.username}})</nav2.link-to>
+        </nav2.item>
       {{else}}
-        <nav.item>
-          <nav.link-to @route="login">Login</nav.link-to>
-        </nav.item>
-        <nav.item>
-          <nav.link-to @route="register">Register</nav.link-to>
-        </nav.item>
+        <nav2.item>
+          <nav2.link-to @route="login"><MdIcon @icon="login" @size=20 @fill="#ffffff"/> Login</nav2.link-to>
+        </nav2.item>
+        <nav2.item>
+          <nav2.link-to @route="register"> <MdIcon @icon="account-plus" @size=20 @fill="#ffffff"/> Register</nav2.link-to>
+        </nav2.item>
       {{/if}}
     </navbar.nav>
+
   </navbar.content>
 </BsNavbar>
 
 <main role="main" class="container">
   {{outlet}}
 </main>
+
+<footer class="footer mt-auto py-3">
+  <div class="container">
+    <span class="text-muted"><a href="https://github.com/Finn10111/TimeTracker" rel="noopener"><MdIcon @icon="github" @size=24/> TimeTracker by Finn Christiansen</a></span>
+  </div>
+</footer>

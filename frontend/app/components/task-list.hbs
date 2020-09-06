@@ -36,10 +36,10 @@
     </li>
   {{/each}}
 
-  <BsForm @model={{this}} @onSubmit={{action "addTask"}} as |form|>
+  <BsForm @onSubmit={{action "addTask"}} as |form|>
     <form.group>
       <li class="list-group-item">
-        <input value={{this.name}} class="form-control" oninput={{action (mut this.name) value="target.value"}} type="text" placeholder="add new task...">
+        <input value={{this.newTaskName}} oninput={{action (mut this.newTaskName) value="target.value"}} class="form-control" type="text" placeholder="add new task...">
       </li>
     </form.group>
   </BsForm>
