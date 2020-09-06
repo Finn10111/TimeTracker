@@ -1,11 +1,25 @@
-import Model, {attr} from '@ember-data/model';
+import Model, {attr, hasMany} from '@ember-data/model';
 
 export default class TaskModel extends Model {
   @attr('string') name;
-  @attr('number', {defaultValue: 0}) seconds;
-  @attr('boolean', {defaultValue: false}) isRunning;
+  @hasMany('timeperiod', { cascadeDelete: true }) timeperiods;
 
-  get milliseconds() {
-    return this.seconds * 1000;
+  get isRunning() {
+    let running = false;
+    this.timeperiods.forEach(function(timeperiod) {
+      if (!timeperiod.end) {
+        running = true;
+      }
+    });
+    return running;
+  }
+
+  get seconds() {
+    let seconds = 0;
+    this.timeperiods.forEach(function(timeperiod) {
+      seconds += timeperiod.get('seconds');
+    });
+    return seconds;
+    
   }
 }

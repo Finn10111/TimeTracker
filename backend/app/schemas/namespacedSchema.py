@@ -1,6 +1,6 @@
 from marshmallow import SchemaOpts
 from marshmallow import pre_load, post_dump
-from marshmallow_sqlalchemy import ModelSchemaOpts, ModelConverter
+from marshmallow_sqlalchemy import ModelSchemaOpts, ModelConverter, ModelSchema
 from .. import ma
 from .. import db
 
@@ -19,9 +19,12 @@ class NamespaceOpts(ModelSchemaOpts):
         self.include_fk = getattr(meta, "include_fk", False)
         self.transient = getattr(meta, "transient", False)
         self.sqla_session = db.session
+        self.load_instance = True
+        self.include_relationships = True
 
 
-class NamespacedSchema(ma.SQLAlchemySchema):
+#class NamespacedSchema(ma.SQLAlchemySchema):
+class NamespacedSchema(ModelSchema):
     OPTIONS_CLASS = NamespaceOpts
 
     @pre_load(pass_many=True)

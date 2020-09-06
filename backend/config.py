@@ -5,6 +5,8 @@ class Config:
     OPENAPI_URL_PREFIX = 'openapi'
     DEBUG = True
     SECRET_KEY = 'secret'
+    API_TITLE = 'timetracker api'
+    API_VERSION = '0.1'
 
     @staticmethod
     def init_app(app):
@@ -13,7 +15,7 @@ class Config:
 
 class DevelopmentConfig(Config):
     # SQLALCHEMY_DATABASE_URI = os.getenv('DEV_DATABASE_URL')
-    SQLALCHEMY_DATABASE_URI = 'postgres://timetracker:timetracker@vm1/timetracker'
+    SQLALCHEMY_DATABASE_URI = 'postgres://timetracker:timetracker@rpi4/timetracker'
 
     OPENAPI_REDOC_PATH = 'redoc'
     OPENAPI_REDOC_VERSION = 'next'

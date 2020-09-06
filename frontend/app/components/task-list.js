@@ -11,8 +11,11 @@ export default class TaskListComponent extends Component {
 
   constructor(owner, args) {
     super(owner, args);
-    this.stopAll();
     this.calculateToalSeconds();
+    var self = this;
+    self.interval = setInterval(function() {
+      self.calculateToalSeconds();
+    }, 1000);
   }
 
   @action
@@ -31,27 +34,15 @@ export default class TaskListComponent extends Component {
 
   @action
   activate(task) {
-    var self = this;
-    self.activeTask = null;
-    this.store.findAll('task')
-      .then(function(tasks) {
-        tasks.forEach(function(task)  {
-          task.set('isRunning', false);
-          task.save().then(function() {
-            window.clearInterval(self.interval);
-          });
-        });
-      task.set('isRunning', true);
-      task.save().then(function() {
-        self.activeTask = task;
-        self.interval = setInterval(function() {
-          task.incrementProperty('seconds');
-          task.save().then(function() {
-            self.calculateToalSeconds();
-          });
-        }, 1000);
-      });
+    this.stopAll();
+    let timeperiod = this.store.createRecord('timeperiod');
+    timeperiod.set('task', task);
+    timeperiod.set('start', new Date());
+    timeperiod.save()
+      .then(function(response) {
+
     });
+    this.activeTask = task;
   }
 
   @action
@@ -66,17 +57,22 @@ export default class TaskListComponent extends Component {
   }
 
   @action
+  stop(task) {
+    this.activeTask = null;
+    task.get('timeperiods').forEach(function(timeperiod) {
+      if (!timeperiod.end) {
+        timeperiod.set('end', new Date());
+        timeperiod.save();
+      }
+    });
+  }
+
+  @action
   stopAll() {
     var self = this;
-    this.store.findAll('task')
-      .then(function(tasks) {
-        tasks.forEach(function(task)  {
-          task.set('isRunning', false);
-          task.save().then(function() {
-            window.clearInterval(self.interval);
-          });
-          self.activeTask = null;
-        });
+    let tasks = this.store.peekAll('task');
+    tasks.forEach(function(task)  {
+      self.stop(task);
     });
   }
 
@@ -84,11 +80,13 @@ export default class TaskListComponent extends Component {
   calculateToalSeconds() {
     var self = this;
     this.totalSeconds = 0;
-    this.store.findAll('task')
-      .then(function(tasks) {
-        tasks.forEach(function(task) {
-          self.totalSeconds += task.seconds;
-        })
-    });
+
+    // iterate over all tasks and update total seconds
+    let tasks = this.store.peekAll('task')
+    tasks.forEach(function(task) {
+      self.totalSeconds += task.seconds;
+    })
+
+    // update active task?
   }
 }

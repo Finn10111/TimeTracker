@@ -14,12 +14,25 @@
   </li>
 
   {{#each @model as |task|}}
-    <li class="list-group-item p-1 {{if task.isRunning 'list-group-item-success'}}">
+    <li class="list-group-item p-1">
       <div class="d-flex">
-        <div class="p-2 flex-grow-1 pointer" {{on 'click' (fn this.activate task)}}>{{task.name}}</div>
+        <div class="p-2 flex-grow-1">
+          <h5>
+            {{task.name}}
+            {{#if task.isRunning}}
+              <MdIcon @icon="clock-check-outline" @size=24 @fill="#009202"/>
+            {{/if}}
+          </h5>
+        </div>
         <div class="p-2"><span class="badge badge-pill badge-success">{{duration task.seconds}}</span></div>
+        {{#if task.isRunning}}
+          <div class="p-2"><button class="btn btn-sm btn-warning" {{on "click" (fn this.stop task)}}>stop</button></div>
+        {{else}}  
+          <div class="p-2"><button class="btn btn-sm btn-success" {{on "click" (fn this.activate task)}}>start</button></div>
+        {{/if}}
         <div class="p-2"><button class="btn btn-sm btn-danger" {{on "click" (fn this.delete task)}}>remove</button></div>
       </div>
+      <TimeperiodList @model={{task.timeperiods}}/>
     </li>
   {{/each}}
 

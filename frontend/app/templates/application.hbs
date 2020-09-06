@@ -1,16 +1,25 @@
 {{#bs-navbar type='dark' backgroundColor='dark' as |navbar|}}
   <div class="navbar-header">
     {{navbar.toggle}}
-    {{#link-to "index" class="navbar-brand"}}TimeTracker{{/link-to}}
+    {{#link-to "index" class="navbar-brand"}}<MdIcon @icon="clock-outline" @size=32 @fill="#ffffff"/> TimeTracker{{/link-to}}
   </div>
   {{#navbar.content}}
     {{#navbar.nav as |nav|}}
-      {{#nav.item}}
-        {{#nav.link-to 'index'}}Tasks{{/nav.link-to}}
-      {{/nav.item}}
-      {{#nav.item}}
-        {{#nav.link-to 'login'}}Login{{/nav.link-to}}
-      {{/nav.item}}
+      {{#if this.session.isAuthenticated}}
+        {{#nav.item}}
+          {{#nav.link-to 'index'}}Tasks{{/nav.link-to}}
+        {{/nav.item}}
+        {{#nav.item}}
+          {{#nav.link-to 'logout'}}Logout{{/nav.link-to}}
+        {{/nav.item}}
+      {{else}}
+        {{#nav.item}}
+          {{#nav.link-to 'login'}}Login{{/nav.link-to}}
+        {{/nav.item}}
+        {{#nav.item}}
+          {{#nav.link-to 'register'}}Register{{/nav.link-to}}
+        {{/nav.item}}
+      {{/if}}
     {{/navbar.nav}}
   {{/navbar.content}}
 {{/bs-navbar}}

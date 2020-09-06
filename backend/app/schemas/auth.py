@@ -3,6 +3,6 @@ from .. import ma
 
 
 class AuthSchema(ma.Schema):
-    username = fields.String()
+    identification = fields.String()
     password = fields.String()
 

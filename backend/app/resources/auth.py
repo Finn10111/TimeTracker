@@ -16,7 +16,8 @@ bp = Blueprint('Auth', 'auth', url_prefix='auth',
 class Login(MethodView):
     @bp.arguments(AuthSchema)
     def post(self, login):
-        username = login['username']
+        print(login)
+        username = login['identification']
         password = login['password']
         user = User.query.filter_by(username=username).first()
         if user is not None and user.verify_password(password):
@@ -26,7 +27,7 @@ class Login(MethodView):
             }
             return jsonify(ret), 200
         else:
-            return False
+            return {'error': 'login invalid'}, 403
 
 
 @bp.route('/refresh', methods=['POST'])
@@ -52,10 +53,22 @@ class Logout(MethodView):
 class Register(MethodView):
     @bp.arguments(AuthSchema)
     def post(self, data):
-        username = data['username']
+        username = data['identification']
         password = data['password']
-        user = User(username=username,
-                    password=password)
-        db.session.add(user)
-        db.session.commit()
-        return 'ok', 200
+
+        # check if user exists
+        user = User.query.filter_by(username=username).first()
+        if user is None:
+            user = User(username=username,
+                        password=password)
+            db.session.add(user)
+            db.session.commit()
+            ret = {
+                'success': True
+            }
+        else:
+            ret = {
+                'success': False,
+                'message': 'username already taken'
+            }
+        return jsonify(ret), 200

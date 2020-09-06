@@ -1,0 +1,12 @@
+{{#each @model as |timeperiod|}}
+  <p>
+    <span class="badge badge-pill badge-secondary">
+      {{moment-format timeperiod.start 'DD.MM.YYYY HH:mm'}} - 
+      {{#if timeperiod.end}}
+        {{moment-format timeperiod.end 'DD.MM.YYYY HH:mm'}}
+      {{else}}
+        running...
+      {{/if}}
+    </span>
+  </p>
+{{/each}}

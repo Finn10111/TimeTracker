@@ -58,7 +58,6 @@ module.exports = function(environment) {
     headers: {'Content-Type': 'application/json'},
     tokenPropertyName: 'access_token',
     refreshTokenPropertyName: 'refresh_token',
-    timeFactor: 1000
   };
 
   return ENV;

@@ -1,7 +1,7 @@
 def register_blueprints(api):
-    from . import auth, users
+    from . import auth, users, tasks, timeperiods
 
-    resources = (auth, users, )
+    resources = (auth, users, tasks, timeperiods)
 
     for resource_blp in (res.bp for res in resources):
         # Here we can register common handlers to all resources
