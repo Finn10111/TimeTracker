@@ -1,28 +1,42 @@
-{{#bs-navbar type='dark' backgroundColor='dark' as |navbar|}}
+<BsNavbar
+  @type="dark"
+  @backgroundColor="dark"
+  @collapsed={{true}}
+  @onCollapse={{action (mut collapsed) true}}
+  @onExpand={{action (mut collapsed) false}}
+  as |navbar|
+>
   <div class="navbar-header">
     {{navbar.toggle}}
-    {{#link-to "index" class="navbar-brand"}}<MdIcon @icon="clock-outline" @size=32 @fill="#ffffff"/> TimeTracker{{/link-to}}
+    {{#link-to "index" class="navbar-brand"}}
+      <MdIcon
+        @icon="clock-outline"
+        @size=32
+        @fill="#ffffff"
+      />
+      TimeTracker
+      {{/link-to}}
   </div>
-  {{#navbar.content}}
-    {{#navbar.nav as |nav|}}
+  <navbar.content>
+    <navbar.nav as |nav|>
       {{#if this.session.isAuthenticated}}
-        {{#nav.item}}
-          {{#nav.link-to 'index'}}Tasks{{/nav.link-to}}
-        {{/nav.item}}
-        {{#nav.item}}
-          {{#nav.link-to 'logout'}}Logout{{/nav.link-to}}
-        {{/nav.item}}
+        <nav.item>
+          <nav.link-to @route="index">Tasks</nav.link-to>
+        </nav.item>
+        <nav.item>
+          <nav.link-to @route="logout">Logout</nav.link-to>
+        </nav.item>
       {{else}}
-        {{#nav.item}}
-          {{#nav.link-to 'login'}}Login{{/nav.link-to}}
-        {{/nav.item}}
-        {{#nav.item}}
-          {{#nav.link-to 'register'}}Register{{/nav.link-to}}
-        {{/nav.item}}
+        <nav.item>
+          <nav.link-to @route="login">Login</nav.link-to>
+        </nav.item>
+        <nav.item>
+          <nav.link-to @route="register">Register</nav.link-to>
+        </nav.item>
       {{/if}}
-    {{/navbar.nav}}
-  {{/navbar.content}}
-{{/bs-navbar}}
+    </navbar.nav>
+  </navbar.content>
+</BsNavbar>
 
 <main role="main" class="container">
   {{outlet}}

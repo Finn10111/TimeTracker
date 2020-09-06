@@ -1,7 +1,8 @@
 {{outlet}}
-{{#bs-form model=this onSubmit=(action "authenticate") as |form|}}
-  {{form.element controlType="text" label="Username" placeholder="Username" property="identification" required=true}}
-  {{form.element controlType="password" label="Password" placeholder="Password" property="password" required=true}}
-  {{bs-button defaultText="Login" type="primary" buttonType="submit"}}
-{{/bs-form}}
+<BsForm @model= {{this}} @onSubmit={{action "authenticate"}} @formLayout="vertical" as |form|>
+  <form.element @controlType="text" @label="Username" @placeholder="Username" @property="identification" @required=true />
+  <form.element @controlType="password" @label="Password" @placeholder="Password" @property="password" @required=true />
+  <form.submitButton>Submit</form.submitButton>
+    <BsButton @buttonType="submit" @type="primary" @disabled={{form.isSubmitting}}>Submit</BsButton>
+</BsForm>
 
