@@ -10,4 +10,4 @@ def register_blueprints(api):
         # resource_blp.after_request(after_request_handler)
 
         api.register_blueprint(resource_blp,
-                               url_prefix=f'/api/{resource_blp.url_prefix}')
+                               url_prefix=f'/{resource_blp.url_prefix}')

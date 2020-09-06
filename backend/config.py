@@ -1,3 +1,5 @@
+import os
+
 class Config:
     # SQLALCHEMY_TRACK_MODIFICATIONS = False
 
@@ -14,8 +16,7 @@ class Config:
 
 
 class DevelopmentConfig(Config):
-    # SQLALCHEMY_DATABASE_URI = os.getenv('DEV_DATABASE_URL')
-    SQLALCHEMY_DATABASE_URI = 'postgres://timetracker:timetracker@rpi4/timetracker'
+    SQLALCHEMY_DATABASE_URI = os.getenv('APP_DEVELOPMENT_DATABASE_URI')
 
     OPENAPI_REDOC_PATH = 'redoc'
     OPENAPI_REDOC_VERSION = 'next'
@@ -25,13 +26,11 @@ class DevelopmentConfig(Config):
 
 class TestingConfig(Config):
     TESTING = True
-
-    # SQLALCHEMY_DATABASE_URI = os.getenv('TEST_DATABASE_URL')
+    SQLALCHEMY_DATABASE_URI = os.getenv('APP_TESTING_DATABASE_URI')
 
 
 class ProductionConfig(Config):
-    # SQLALCHEMY_DATABASE_URI = os.getenv('PROD_DATABASE_URL')
-    pass
+    SQLALCHEMY_DATABASE_URI = os.getenv('APP_PRODUCTION_DATABASE_URI')
 
 
 config = {
