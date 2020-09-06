@@ -2,7 +2,6 @@ from flask import Flask
 from flask_smorest import Api
 from flask_marshmallow import Marshmallow
 from flask_sqlalchemy import SQLAlchemy
-from config import config
 from flask_migrate import Migrate
 from flask_jwt_extended import JWTManager
 
@@ -14,6 +13,7 @@ jwt = JWTManager()
 
 
 def create_app(cfg='default'):
+    from config import config
     app = Flask(__name__)
     app.config.from_object(config[cfg])
     app.url_map.strict_slashes = False
