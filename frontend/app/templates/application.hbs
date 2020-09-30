@@ -21,7 +21,7 @@
 
     <navbar.nav @class="mr-auto" as |nav|>
       <nav.item>
-        <nav.link-to @route="index"> <MdIcon @icon="calendar-check" @size=20 @fill="#ffffff"/> Tasks</nav.link-to>
+        <nav.link-to @route="tasks"> <MdIcon @icon="calendar-check" @size=20 @fill="#ffffff"/> Tasks</nav.link-to>
       </nav.item>
     </navbar.nav>
 
@@ -46,7 +46,7 @@
   </navbar.content>
 </BsNavbar>
 
-<main role="main" class="container">
+<main role="main">
   {{outlet}}
 </main>
 

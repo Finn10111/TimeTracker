@@ -1,4 +1,26 @@
 {{outlet}}
-<h1>Tasks</h1>
 
-<TaskList @model={{model}}/>
+<div class="jumbotron">
+  <div class="container">
+    <h1 clas="display-3">Welcome to your personal timetracker</h1>
+    <p>This apps helps you to track time while completing differnt tasks.</p>
+    <p><LinkTo @route="tasks"><BsButton @type="primary" class="btn-lg">Get started &raquo;</BsButton></LinkTo></p>
+  </div>
+</div>
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-4">
+      <h2>Track your time</h2>
+      <p>This is what the app does.</p>
+    </div>
+    <div class="col-md-4">
+      <h2>Easy to use</h2>
+      <p>Just some clicks.</p>
+    </div>
+    <div class="col-md-4">
+      <h2>User Accounts</h2>
+      <p>Set up an account an get started, you can use it on different devices.</p>
+    </div>
+  </div>
+</div> 

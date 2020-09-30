@@ -1,10 +1,15 @@
 from flask import jsonify
 from .. import db
-from flask_jwt_extended import create_access_token, create_refresh_token, get_jwt_identity
+from flask_jwt_extended import (
+    create_access_token,
+    create_refresh_token,
+    get_jwt_identity,
+    jwt_required,
+    jwt_refresh_token_required
+)
 
 from ..models.user import User
 from ..schemas.auth import AuthSchema
-from ..helpers.jwt_esat import jwt_esat_refresh_token_required
 from flask_smorest import Blueprint
 from flask.views import MethodView
 
@@ -30,9 +35,9 @@ class Login(MethodView):
 
 
 @bp.route('/refresh', methods=['POST'])
-@jwt_esat_refresh_token_required
 class Refresh(MethodView):
-    def refresh():
+    @jwt_refresh_token_required
+    def post(self):
         current_user = get_jwt_identity()
         ret = {
             'access_token': create_access_token(identity=current_user),
@@ -43,7 +48,7 @@ class Refresh(MethodView):
 
 @bp.route('/logout', methods=['POST'])
 class Logout(MethodView):
-    def post():
+    def post(self):
         #logout_user()
         return True
 
