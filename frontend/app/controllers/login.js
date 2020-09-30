@@ -11,14 +11,14 @@ export default class LoginController extends Controller {
   async authenticate() {
     let { identification, password } = this;
     try {
-      await this.session.authenticate('authenticator:token', {identification, password});
+      await this.session.authenticate('authenticator:jwt', {identification, password});
     } catch(error) {
       this.errorMessage = error.error || error;
     }
 
     if (this.session.isAuthenticated) {
       this.session.set('data.username', identification);
-      this.transitionToRoute('index');
+      this.transitionToRoute('tasks');
     } else {
       this.errorMessage = 'login failed :-(';
     }

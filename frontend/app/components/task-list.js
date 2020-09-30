@@ -43,6 +43,7 @@ export default class TaskListComponent extends Component {
     });
     timeperiod.save();
     this.activeTask = task;
+    // update seconds?
   }
 
   @action
