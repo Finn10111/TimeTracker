@@ -11,4 +11,6 @@ Router.map(function() {
   this.route('register');
   this.route('logout');
   this.route('profile');
+  this.route('page-not-found', { path: '/*wildcard' });
+  this.route('tasks');
 });

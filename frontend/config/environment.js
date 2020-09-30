@@ -58,6 +58,8 @@ module.exports = function(environment) {
     headers: {'Content-Type': 'application/json'},
     tokenPropertyName: 'access_token',
     refreshTokenPropertyName: 'refresh_token',
+    authorizationHeaderName: 'Authorization', // Header name added to each API request
+    authorizationPrefix: 'Bearer ', // Prefix added to each API request
   };
 
   return ENV;

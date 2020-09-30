@@ -1,13 +1,15 @@
-{{#if this.errorMessage}}
-<BsAlert @type="danger">
-  <strong> Oh snap! </strong> {{this.errorMessage}}
-</BsAlert>
-{{/if}}
+<div class="container">
+  {{#if this.errorMessage}}
+  <BsAlert @type="danger">
+    <strong> Oh snap! </strong> {{this.errorMessage}}
+  </BsAlert>
+  {{/if}}
 
-<BsForm @model= {{this}} @onSubmit={{action "register"}} @formLayout="vertical" as |form|>
-  <form.element @controlType="text" @label="Username" @placeholder="Username" @property="identification" @required=true />
-  <form.element @controlType="password" @label="Password" @placeholder="Password" @property="password" @required=true />
-  <form.element @controlType="password" @label="Password (again)" @placeholder="Password" @property="password_again" @required=true />
-  <form.submitButton>Submit</form.submitButton>
-  <BsButton @buttonType="submit" @type="primary" @disabled={{form.isSubmitting}}>Submit</BsButton>
-</BsForm>
+  <BsForm @model= {{this}} @onSubmit={{action "register"}} @formLayout="vertical" as |form|>
+    <form.element @controlType="text" @label="Username" @placeholder="Username" @property="identification" @required=true />
+    <form.element @controlType="password" @label="Password" @placeholder="Password" @property="password" @required=true />
+    <form.element @controlType="password" @label="Password (again)" @placeholder="Password" @property="password_again" @required=true />
+    <form.submitButton>Submit</form.submitButton>
+    <BsButton @buttonType="submit" @type="primary" @disabled={{form.isSubmitting}}>Submit</BsButton>
+  </BsForm>
+</div>
