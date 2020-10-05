@@ -60,6 +60,7 @@ module.exports = function(environment) {
     refreshTokenPropertyName: 'refresh_token',
     authorizationHeaderName: 'Authorization', // Header name added to each API request
     authorizationPrefix: 'Bearer ', // Prefix added to each API request
+    tokenExpirationInvalidateSession: true,
   };
 
   return ENV;
