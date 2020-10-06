@@ -7,6 +7,7 @@
       {{else}}
         running...
       {{/if}}
+      <MdIcon @icon="delete" @size=12 @fill="#000000" class="pointer" {{on "click" (fn delete timeperiod)}}/>
     </span>
   </p>
 {{/each}}
