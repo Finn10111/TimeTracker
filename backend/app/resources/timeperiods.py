@@ -3,6 +3,7 @@ from flask.views import MethodView
 from flask_smorest import Blueprint
 from ..schemas.timeperiod import TimeperiodSchema, TimeperiodQuerySchema
 from ..models.timeperiod import Timeperiod
+from flask_jwt_extended import jwt_required
 
 bp = Blueprint('Timeperiod', 'timeperiods', url_prefix='timeperiods',
                description='Operations on timeperiods')
@@ -17,11 +18,9 @@ class Timeperiods(MethodView):
         timeperiods = Timeperiod.query.all()
         return timeperiods
 
-
     @bp.arguments(TimeperiodSchema)
     @bp.response(TimeperiodSchema, code=201)
     def post(self, new_timeperiod):
-        print(new_timeperiod)
         db.session.add(new_timeperiod)
         db.session.commit()
         return new_timeperiod
@@ -33,10 +32,14 @@ class TimeperiodById(MethodView):
     @bp.response(TimeperiodSchema)
     def put(self, update_timeperiod, timeperiod_id):
         timeperiod = Timeperiod.query.get(timeperiod_id)
-
         timeperiod.end = update_timeperiod.end
-
         db.session.add(timeperiod)
         db.session.commit()
-
         return update_timeperiod
+
+    @bp.response(code=204)
+    @jwt_required
+    def delete(self, timeperiod_id):
+        timeperiod = Timeperiod.query.get(timeperiod_id)
+        db.session.delete(timeperiod)
+        db.session.commit()
