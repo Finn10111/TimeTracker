@@ -7,3 +7,8 @@ class UserHelper:
         username = get_jwt_identity()
         user = User.query.filter_by(username=username).first()
         return user.id
+
+    def timepreiod_belong_to_user(timeperiod):
+        username = get_jwt_identity()
+        user = User.query.filter_by(username=username).first()
+        return timeperiod.task.user == user
