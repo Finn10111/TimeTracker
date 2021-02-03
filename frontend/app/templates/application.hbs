@@ -47,6 +47,13 @@
 </BsNavbar>
 
 <main role="main">
+  <div class="row">
+    <div class="container fixed-top mt-1">
+      {{#each flashMessages.queue as |flash|}}
+        <FlashMessage @flash={{flash}} />
+      {{/each}}
+    </div>
+  </div>
   {{outlet}}
 </main>
 

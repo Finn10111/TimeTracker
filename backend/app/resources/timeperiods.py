@@ -37,7 +37,7 @@ class TimeperiodById(MethodView):
             timeperiod.end = update_timeperiod.end
             db.session.add(timeperiod)
             db.session.commit()
-            return update_timeperiod
+            return timeperiod
         else:
             return {'error': 'this is not your task'}, 403
 

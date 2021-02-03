@@ -5,6 +5,7 @@ import { tracked } from '@glimmer/tracking';
 
 export default class TaskListComponent extends Component {
   @service store;
+  @service flashMessages;
   @tracked activeTask = null;
   @tracked interval = null;
   @tracked totalSeconds = 0;
@@ -31,6 +32,10 @@ export default class TaskListComponent extends Component {
       self.activate(task);
       // reset input
       self.newTaskName = '';
+    })
+    .catch(function(){
+      self.flashMessages.danger('Something went wrong!');
+      // TODO: Task still visible even if not persisted
     });
   }
 
@@ -41,8 +46,15 @@ export default class TaskListComponent extends Component {
       'task': task,
       'start': new Date(),
     });
-    timeperiod.save();
-    this.activeTask = task;
+    var self = this;
+    timeperiod.save()
+    .then(function(task){
+      self.activeTask = task;
+    })
+    .catch(function(timeperiod){
+      self.flashMessages.danger('Something went wrong!');
+      timeperiod.deleteRecord(); // still visible?!
+    });
     // update seconds?
   }
 
@@ -54,16 +66,25 @@ export default class TaskListComponent extends Component {
     }
     task.destroyRecord().then(function() {
       self.calculateToalSeconds();
+    })
+    .catch(function(){
+      self.flashMessages.danger('Something went wrong!');
     });
   }
 
   @action
   stop(task) {
+    var self = this;
     this.activeTask = null;
     task.get('timeperiods').forEach(function(timeperiod) {
       if (!timeperiod.end) {
         timeperiod.set('end', new Date());
-        timeperiod.save();
+        // save stopped timeperiod
+        timeperiod.save()
+        .catch(function(){
+          self.flashMessages.danger('Something went wrong!');
+          timeperiod.rollbackAttributes();
+        });
       }
     });
   }
