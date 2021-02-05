@@ -1,6 +1,6 @@
 {
   "name": "timetracker",
-  "version": "0.0.1",
+  "version": "0.1.1",
   "private": true,
   "description": "Small description for timetracker goes here",
   "repository": "",
@@ -29,7 +29,7 @@
     "bootstrap": "^4.5.2",
     "broccoli-asset-rev": "^3.0.0",
     "ember-auto-import": "^1.6.0",
-    "ember-bootstrap": "^3.1.4",
+    "ember-bootstrap": "^4.6.3",
     "ember-cli": "^3.24.0",
     "ember-cli-app-version": "^3.2.0",
     "ember-cli-babel": "^7.22.1",

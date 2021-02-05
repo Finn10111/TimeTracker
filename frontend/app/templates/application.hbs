@@ -19,13 +19,13 @@
   </div>
   <navbar.content>
 
-    <navbar.nav @class="mr-auto" as |nav|>
+    <navbar.nav as |nav|>
       <nav.item>
         <nav.link-to @route="tasks"> <MdIcon @icon="calendar-check" @size=20 @fill="#ffffff"/> Tasks</nav.link-to>
       </nav.item>
     </navbar.nav>
 
-    <navbar.nav as |nav2|>
+    <navbar.nav class="ml-auto" as |nav2|>
       {{#if this.session.isAuthenticated}}
         <nav2.item>
           <nav2.link-to @route="logout"><MdIcon @icon="logout" @size=20 @fill="#ffffff"/> Logout</nav2.link-to>
