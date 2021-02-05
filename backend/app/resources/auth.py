@@ -4,7 +4,6 @@ from flask_jwt_extended import (
     create_access_token,
     create_refresh_token,
     get_jwt_identity,
-    jwt_required,
     jwt_refresh_token_required
 )
 
@@ -21,7 +20,7 @@ bp = Blueprint('Auth', 'auth', url_prefix='auth',
 class Login(MethodView):
     @bp.arguments(AuthSchema)
     def post(self, login):
-        username = login['identification']
+        username = login['identification'].lower()
         password = login['password']
         user = User.query.filter_by(username=username).first()
         if user is not None and user.verify_password(password):
