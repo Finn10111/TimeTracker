@@ -48,6 +48,8 @@
     <form.group>
       <li class="list-group-item">
         <input value={{this.newTaskName}} oninput={{action (mut this.newTaskName) value="target.value"}} class="form-control" type="text" placeholder="add new task...">
+        <form.submitButton class="float-right mt-2">start task</form.submitButton>
+        <div class="clearfix"></div>
       </li>
     </form.group>
   </BsForm>
